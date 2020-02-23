@@ -42,11 +42,11 @@ defmodule OpenspotLive.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.6"},
       {:jason, "~> 1.1"},
-      {:websockex, "~> 0.4.2"},
+      {:websockex, "~> 0.4.2"}
     ]
   end
 
   defp aliases do
-    [ ]
+    []
   end
 end

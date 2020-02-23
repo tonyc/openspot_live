@@ -11,7 +11,7 @@ defmodule OpenspotLive.Device.WebsocketWorker do
   ]
 
   def start_link(_args \\ [], state \\ %{}) do
-    Logger.info "#{__MODULE__}: start_link()"
+    Logger.info("#{__MODULE__}: start_link()")
     {:ok, jwt} = authenticate()
 
     IO.puts("JWT: #{jwt}")
@@ -36,18 +36,18 @@ defmodule OpenspotLive.Device.WebsocketWorker do
 
   @impl true
   def handle_frame({type, msg}, state) do
-    Logger.debug("handle_frame: {#{inspect type}, #{inspect msg}}")
-    #IO.puts("Received type: #{inspect(type)}, msg: #{inspect(msg)}")
+    Logger.debug("handle_frame: {#{inspect(type)}, #{inspect(msg)}}")
+    # IO.puts("Received type: #{inspect(type)}, msg: #{inspect(msg)}")
     {:ok, state}
   end
 
-   def dispatch_msg(%{"type" => "calllog"} = msg) do
+  def dispatch_msg(%{"type" => "calllog"} = msg) do
     IO.puts("#{__MODULE__}: *****************************")
     IO.puts("#{__MODULE__}: Calllog: #{inspect(msg)}")
     IO.puts("#{__MODULE__}: *****************************")
-   end
+  end
 
-  #def dispatch_msg(%{"type" => "status", "status" => status} = _msg) do
+  # def dispatch_msg(%{"type" => "status", "status" => status} = _msg) do
   #  DefaultSeries.from_map(%{
   #    cn_rx_bytes: status["cn_rx_bytes"],
   #    cn_tx_bytes: status["cn_tx_bytes"],
@@ -56,10 +56,10 @@ defmodule OpenspotLive.Device.WebsocketWorker do
   #    rx_bytes: status["rx_bytes"],
   #    tx_bytes: status["tx_bytes"]
   #  })
-  #end
+  # end
 
   def dispatch_msg(_msg) do
-    #IO.puts "dispatch: #{inspect msg}"
+    # IO.puts "dispatch: #{inspect msg}"
   end
 
   def authenticate(password \\ @default_password) do
