@@ -11,7 +11,10 @@ config :openspot_live, OpenspotLiveWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "vTZwf6pddEXWYeugZi8GuZ3GSJ7IBJH8DM8bmiqrC194J5EskmWbjzWvMa6YnUcH",
   render_errors: [view: OpenspotLiveWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: OpenspotLive.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: OpenspotLive.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "W4BxQTE/MNQqoWK6C0KVCOyLzbAfSAG5"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
