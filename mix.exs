@@ -39,16 +39,14 @@ defmodule OpenspotLive.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:httpoison, "~> 1.6"},
+      {:jason, "~> 1.1"},
+      {:websockex, "~> 0.4.2"},
     ]
   end
 
   defp aliases do
-    [
-      #"ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      #"ecto.reset": ["ecto.drop", "ecto.setup"],
-      #test: ["ecto.create --quiet", "ecto.migrate", "test"]
-    ]
+    [ ]
   end
 end
