@@ -2,7 +2,7 @@ defmodule OpenspotLiveWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_openspot_live_key",
-    signing_salt: "bJcjUfFh"
+    signing_salt: "some_signing_salt"
   ]
 
   use Phoenix.Endpoint, otp_app: :openspot_live
@@ -13,7 +13,7 @@ defmodule OpenspotLiveWeb.Endpoint do
 
 
   socket "/live", Phoenix.LiveView.Socket,
-    websocket: [connect_info: [sesison: @session_options]]
+    websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #

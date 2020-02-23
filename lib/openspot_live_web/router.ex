@@ -16,7 +16,8 @@ defmodule OpenspotLiveWeb.Router do
   scope "/", OpenspotLiveWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    #get "/", PageController, :index
+    live "/", OpenspotLive
   end
 
   # Other scopes may use custom stacks.

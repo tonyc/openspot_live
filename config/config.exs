@@ -13,7 +13,7 @@ config :openspot_live, OpenspotLiveWeb.Endpoint,
   render_errors: [view: OpenspotLiveWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: OpenspotLive.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [
-    signing_salt: "W4BxQTE/MNQqoWK6C0KVCOyLzbAfSAG5"
+    signing_salt: "some_signing_salt"
   ]
 
 # Configures Elixir's Logger

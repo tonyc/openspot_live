@@ -1,5 +1,12 @@
 defmodule OpenspotLive.Device.WebsocketWorker do
-  require Logger
+  #require Logger
+
+  alias OpenspotLiveWeb.{Endpoint}
+
+  # this is duplicated in lib/openspot_live_web/openspot_live.ex
+  @broadcast_topic "openspot"
+  @broadcast_message "openspot.message"
+
   use WebSockex
 
   @hostname "openspot.local"
@@ -11,7 +18,7 @@ defmodule OpenspotLive.Device.WebsocketWorker do
   ]
 
   def start_link(_args \\ [], state \\ %{}) do
-    Logger.info("#{__MODULE__}: start_link()")
+    #Logger.info("#{__MODULE__}: start_link()")
     {:ok, jwt} = authenticate()
 
     IO.puts("JWT: #{jwt}")
@@ -25,7 +32,7 @@ defmodule OpenspotLive.Device.WebsocketWorker do
 
   @impl true
   def handle_frame({:text, msg}, state) do
-    Logger.debug(msg)
+    #Logger.debug(msg)
 
     msg
     |> Jason.decode!()
@@ -35,16 +42,14 @@ defmodule OpenspotLive.Device.WebsocketWorker do
   end
 
   @impl true
-  def handle_frame({type, msg}, state) do
-    Logger.debug("handle_frame: {#{inspect(type)}, #{inspect(msg)}}")
+  def handle_frame({_type, _msg}, state) do
+    #Logger.debug("handle_frame: {#{inspect(type)}, #{inspect(msg)}}")
     # IO.puts("Received type: #{inspect(type)}, msg: #{inspect(msg)}")
     {:ok, state}
   end
 
-  def dispatch_msg(%{"type" => "calllog"} = msg) do
-    IO.puts("#{__MODULE__}: *****************************")
-    IO.puts("#{__MODULE__}: Calllog: #{inspect(msg)}")
-    IO.puts("#{__MODULE__}: *****************************")
+  def dispatch_msg(msg) do
+    msg |> broadcast!
   end
 
   # def dispatch_msg(%{"type" => "status", "status" => status} = _msg) do
@@ -58,9 +63,9 @@ defmodule OpenspotLive.Device.WebsocketWorker do
   #  })
   # end
 
-  def dispatch_msg(_msg) do
-    # IO.puts "dispatch: #{inspect msg}"
-  end
+  #def dispatch_msg(_msg) do
+  #  #msg |> broadcast!()
+  #end
 
   def authenticate(password \\ @default_password) do
     {:ok, response} = HTTPoison.get(api_url("gettok"))
@@ -87,5 +92,9 @@ defmodule OpenspotLive.Device.WebsocketWorker do
 
   def digest_password(password, token) do
     :crypto.hash(:sha256, token <> password) |> Base.encode16() |> String.downcase()
+  end
+
+  defp broadcast!(payload) do
+     Endpoint.broadcast(@broadcast_topic, @broadcast_message, payload)
   end
 end

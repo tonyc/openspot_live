@@ -37,7 +37,6 @@ defmodule OpenspotLiveWeb do
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
-      import Phoenix.LiveView.Helpers
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -45,6 +44,7 @@ defmodule OpenspotLiveWeb do
       import OpenspotLiveWeb.ErrorHelpers
       import OpenspotLiveWeb.Gettext
       alias OpenspotLiveWeb.Router.Helpers, as: Routes
+      import Phoenix.LiveView.Helpers
     end
   end
 
