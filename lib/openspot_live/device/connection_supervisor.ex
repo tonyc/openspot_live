@@ -1,5 +1,6 @@
 defmodule OpenspotLive.Device.ConnectionSupervisor do
   use Supervisor
+
   require Logger
 
   alias OpenspotLive.Device.{WebsocketWorker}
@@ -8,14 +9,9 @@ defmodule OpenspotLive.Device.ConnectionSupervisor do
     Supervisor.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-  def init(args) do
+  def init(_args) do
     children = [
-      %{
-        id: WebsocketWorker,
-        start: {WebsocketWorker, :start_link, [args]},
-        type: :worker,
-        restart: :permanent,
-      }
+      WebsocketWorker
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

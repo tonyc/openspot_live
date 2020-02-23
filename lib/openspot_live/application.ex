@@ -5,21 +5,16 @@ defmodule OpenspotLive.Application do
 
   use Application
 
-  alias OpenspotLive.Device.ConnectionSupervisor
+  alias OpenspotLive.Device
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
       OpenspotLiveWeb.Endpoint,
-      %{
-        id: ConnectionSupervisor,
-        start: {ConnectionSupervisor, :start_link, [[]]},
-        restart: :permanent,
-        type: :supervisor
-      }
       # Starts a worker by calling: OpenspotLive.Worker.start_link(arg)
       # {OpenspotLive.Worker, arg},
+      Device.ConnectionSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

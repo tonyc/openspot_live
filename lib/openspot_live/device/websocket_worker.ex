@@ -11,6 +11,7 @@ defmodule OpenspotLive.Device.WebsocketWorker do
   ]
 
   def start_link(_args \\ [], state \\ %{}) do
+    Logger.info "#{__MODULE__}: start_link()"
     {:ok, jwt} = authenticate()
 
     IO.puts("JWT: #{jwt}")
